@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Opciones</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <h2>Bienvenido</h2>
+            <p>Para comenzar, por favor completa tus datos:</p>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="regName">Nombre:</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Correo:</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="regWhatsapp">WhatsApp:</label>
+                    <input type="text" id="regWhatsapp" placeholder="Ej: +521234567890" required>
+                </div>
+                <div class="form-group">
+                    <label for="regCountry">País:</label>
+                    <input type="text" id="regCountry" required>
+                </div>
+                <div class="form-group">
+                    <label for="regState">Estado:</label>
+                    <input type="text" id="regState" required>
+                </div>
+                <div class="form-group">
+                    <label for="regProfession">Profesión a la que se dedica:</label>
+                    <input type="text" id="regProfession" required>
+                </div>
+                <button type="submit" id="enterAppBtn" class="action-button" disabled>Entrar a la App</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="logo-area">
+            <img id="appLogo" src="" alt="Logo de la Aplicación" class="hidden">
+            <input type="file" id="logoUpload" accept="image/png" class="hidden">
+        </div>
+        <div class="config-area">
+            <button id="configToggleButton" class="action-button config-button">Configurar</button>
+            <p class="facilitator-note">Solo facilitadores</p>
+            <button id="exitButton" class="action-button exit-button">Salir de la App</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="personalization-controls hidden">
+            <h3>Controles de Configuración</h3>
+            <div class="control-group">
+                <label for="backgroundColorPicker">Fondo Principal:</label>
+                <input type="color" id="backgroundColorPicker" value="#2c3e50">
+            </div>
+            <div class="control-group">
+                <label for="fontFamilySelector">Fuente General:</label>
+                <select id="fontFamilySelector">
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="Helvetica, sans-serif">Helvetica</option>
+                    <option value="Georgia, serif">Georgia</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="fontSizeSelector">Tamaño Texto:</label>
+                <input type="range" id="fontSizeSelector" min="14" max="36" value="18">
+                <span id="currentFontSize">18px</span>
+            </div>
+            <div class="control-group">
+                <label for="generalTextColorPicker">Color Texto General:</label>
+                <input type="color" id="generalTextColorPicker" value="#ecf0f1">
+            </div>
+            <div class="control-group">
+                <label for="titleColorPicker">Color Título:</label>
+                <input type="color" id="titleColorPicker" value="#f1c40f">
+            </div>
+            <div class="control-group">
+                <label for="subtitleColorPicker">Color Subtítulo:</label>
+                <input type="color" id="subtitleColorPicker" value="#bdc3c7">
+            </div>
+
+            <div class="upload-section">
+                <input type="file" id="textFileUpload" accept=".txt">
+                <label for="textFileUpload" class="button-upload">Subir Archivo de Textos (.txt)</label>
+            </div>
+        </div>
+
+        <h1 id="mainTitle">SELECTOR DE OPCIONES</h1>
+        <h2 id="professionSubtitle"></h2>
+
+        <div class="buttons-container">
+            <button id="smallOpportunityBtn" class="action-button">Pequeña Oportunidad</button>
+            <button id="bigOpportunityBtn" class="action-button">Gran Oportunidad</button>
+            <button id="marketBtn" class="action-button">Mercado</button>
+            <button id="whimBtn" class="action-button">Capricho</button>
+        </div>
+
+        <div class="text-display-container">
+            <div id="textCard" class="text-card">
+                <p id="displayText">Presiona un botón para ver un texto.</p>
+            </div>
+        </div>
+        <p id="resetMessage" class="reset-message"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

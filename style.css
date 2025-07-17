@@ -1,0 +1,551 @@
+:root {
+    /* Paleta de colores inspirada en Cashflow 202 */
+    --color-bg-dark: #2c3e50; /* Azul oscuro/gris base */
+    --color-text-light: #ecf0f1; /* Texto claro principal */
+    --color-accent-gold: #f1c40f; /* Dorado de acento */
+    --color-secondary-text: #bdc3c7; /* Texto secundario gris claro */
+    --color-button-green-light: #8BC34A; /* Verde Claro */
+    --color-button-green-dark: #388E3C; /* Verde Oscuro */
+    --color-button-red: #C0392B; /* Rojo */
+    --color-button-blue: #2980B9; /* Azul */
+    --color-led-text: #00FF00; /* Verde brillante para efecto LED */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column; /* Columna para top-bar y container */
+    justify-content: flex-start; /* Alinear arriba */
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--color-bg-dark); /* Color de fondo por defecto */
+    color: var(--color-text-light);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* Necesario para posicionar top-right-controls */
+    overflow-x: hidden; /* Evita scroll horizontal en animaciones */
+}
+
+/* --- Top Bar (Logo y Configuración) --- */
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+#appLogo {
+    max-width: 100px; /* Tamaño proporcional */
+    max-height: 100px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 5px; /* Suavizar bordes del logo */
+}
+
+.config-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.config-button {
+    background-color: var(--color-secondary-text) !important; /* Sobreescribe el color de los action-button */
+    color: var(--color-bg-dark) !important;
+    padding: 8px 15px !important;
+    font-size: 0.9em !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para realzar */
+}
+.config-button:hover {
+    background-color: #95a5a6 !important;
+}
+
+.facilitator-note {
+    font-size: 0.8em;
+    color: var(--color-secondary-text);
+    margin: 0;
+}
+
+.hidden {
+    display: none !important; /* !important para asegurar que se oculta */
+}
+
+/* --- Estilos para el nuevo botón de salida */
+.exit-button {
+    background-color: #e74c3c !important; /* Rojo para el botón de salida */
+    color: white !important;
+    margin-top: 10px; /* Espacio debajo de la nota de facilitadores */
+    padding: 8px 15px !important;
+    font-size: 0.9em !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.exit-button:hover {
+    background-color: #c0392b !important;
+}
+
+/* --- Contenedor Principal de la App --- */
+.container {
+    background-color: #34495e; /* Un tono un poco más claro que el body */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada */
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    margin-top: 0; /* Ya no necesitamos margen superior fijo */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+}
+
+/* --- Controles de Personalización --- */
+.personalization-controls {
+    background-color: #3c526a; /* Fondo para los controles */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.personalization-controls h3 {
+    width: 100%;
+    color: var(--color-accent-gold);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 180px; /* Ancho mínimo para cada grupo de control */
+}
+
+.personalization-controls label {
+    font-weight: 600; /* Más énfasis en las etiquetas */
+    color: var(--color-secondary-text);
+}
+
+.personalization-controls input[type="color"],
+.personalization-controls select,
+.personalization-controls input[type="range"] {
+    padding: 8px;
+    border: 1px solid #5d7085;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #4a6177; /* Fondo para inputs de control */
+    color: var(--color-text-light);
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Reset para sliders y color pickers */
+    appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: none; border-radius: 3px; }
+input[type="color"]::-moz-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-moz-color-swatch { border: none; border-radius: 3px; }
+
+input[type="range"] {
+    height: 8px;
+    background: #5d7085;
+    border-radius: 5px;
+    outline: none;
+    transition: opacity .2s;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-accent-gold);
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-accent-gold);
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+#currentFontSize {
+    color: var(--color-accent-gold);
+    font-weight: bold;
+    align-self: flex-end; /* Alinea el tamaño actual a la derecha */
+}
+
+
+/* --- Títulos --- */
+#mainTitle {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: var(--color-accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#professionSubtitle {
+    font-size: 1.8em;
+    color: var(--color-secondary-text);
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+/* --- Botón de Subida de Archivo --- */
+.upload-section {
+    width: 100%; /* Asegura que ocupe todo el ancho disponible en la configuración */
+    text-align: center;
+    margin-top: 20px; /* Espacio arriba del botón de carga */
+}
+
+#textFileUpload {
+    display: none;
+}
+
+.button-upload {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--color-accent-gold);
+    color: var(--color-bg-dark);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-upload:hover {
+    background-color: #d4ac0d; /* Un tono más oscuro del dorado */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.button-upload:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Contenedor de Botones de Acción --- */
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.action-button {
+    padding: 18px 30px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 700; /* Más grueso */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    min-width: 200px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra para realce */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative; /* Para el efecto de brillo */
+    overflow: hidden; /* Oculta el brillo desbordante */
+}
+
+/* Efecto de brillo en hover */
+.action-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: skewX(-20deg);
+    transition: left 0.4s ease-out;
+}
+
+.action-button:hover::before {
+    left: 100%;
+}
+
+
+/* Colores específicos para cada botón */
+#smallOpportunityBtn {
+    background-color: var(--color-button-green-light);
+}
+
+#bigOpportunityBtn {
+    background-color: var(--color-button-green-dark);
+}
+
+#marketBtn {
+    background-color: var(--color-button-red);
+}
+
+#whimBtn {
+    background-color: var(--color-button-blue);
+}
+
+.action-button:hover {
+    transform: translateY(-5px); /* Más levantado */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.action-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Pantalla de Texto (LED Futurista) --- */
+.text-display-container {
+    perspective: 1000px;
+    height: 180px; /* Un poco más de altura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #1a1a1a; /* Fondo muy oscuro para el LED */
+    border-radius: 12px;
+    box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.6); /* Sombra interna y externa para efecto LED */
+    padding: 10px;
+    border: 2px solid var(--color-button-green-dark); /* Borde que simula un marco LED */
+}
+
+.text-card {
+    background-color: transparent; /* Fondo transparente para el LED */
+    border: none;
+    border-radius: 0; /* Sin bordes redondeados internos */
+    padding: 15px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.6em; /* Texto más grande */
+    color: var(--color-led-text); /* Color brillante para el texto LED */
+    width: 95%; /* Ocupa más espacio interno */
+    max-width: 700px;
+    text-shadow: 0 0 8px var(--color-led-text), 0 0 15px rgba(0, 255, 0, 0.5); /* Efecto de resplandor */
+    transition: transform 0.6s ease-in-out; /* Transición más dramática */
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    line-height: 1.4; /* Espaciado entre líneas para legibilidad */
+    font-weight: 600; /* Texto más fuerte */
+}
+
+.text-card.flip {
+    transform: rotateY(180deg);
+}
+
+.reset-message {
+    font-size: 1.2em;
+    color: var(--color-accent-gold);
+    margin-top: 25px;
+    font-weight: 700;
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+    .logo-area {
+        width: 100%;
+        justify-content: center;
+    }
+    .config-area {
+        width: 100%;
+        align-items: center;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .personalization-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    .control-group {
+        min-width: unset;
+        width: 100%;
+    }
+
+    #mainTitle {
+        font-size: 2.2em;
+    }
+    #professionSubtitle {
+        font-size: 1.4em;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .action-button {
+        min-width: unset;
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 1.1em;
+    }
+
+    .text-card {
+        font-size: 1.3em;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #appLogo {
+        max-width: 80px;
+        max-height: 80px;
+    }
+    #mainTitle {
+        font-size: 1.8em;
+    }
+    #professionSubtitle {
+        font-size: 1.1em;
+    }
+    .text-card {
+        font-size: 1.1em;
+    }
+}
+
+
+/* --- Estilos para el Modal de Registro --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posicionamiento fijo para que cubra toda la pantalla */
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll si el contenido es muy grande */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente oscuro */
+    display: flex; /* Para centrar el contenido */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
+}
+
+.modal-content {
+    background-color: #34495e; /* Mismo fondo que el contenedor principal de la app */
+    margin: auto;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    color: var(--color-text-light);
+    transform: scale(0.9); /* Pequeña escala para el efecto de aparición */
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show-modal .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-content h2 {
+    color: var(--color-accent-gold);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    color: var(--color-secondary-text);
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--color-accent-gold);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: calc(100% - 20px); /* Ancho completo menos padding */
+    padding: 10px;
+    border: 1px solid #5d7085;
+    border-radius: 5px;
+    background-color: #4a6177;
+    color: var(--color-text-light);
+    font-size: 1em;
+    box-sizing: border-box; /* Incluir padding en el ancho */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 0 5px rgba(241, 196, 15, 0.5);
+}
+
+#enterAppBtn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.3em;
+    margin-top: 20px;
+    background-color: var(--color-accent-gold);
+    color: var(--color-bg-dark);
+    font-weight: 700;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#enterAppBtn:disabled {
+    background-color: #7f8c8d; /* Color gris para deshabilitado */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+#enterAppBtn:not(:disabled):hover {
+    background-color: #d4ac0d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#enterAppBtn:not(:disabled):active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
